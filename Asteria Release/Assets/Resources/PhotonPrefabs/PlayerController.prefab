@@ -150,7 +150,7 @@ MonoBehaviour:
   mouseSensitivity: 3
   sprintSpeed: 6
   walkSpeed: 3
-  jumpForce: 5
+  jumpForce: 300
   smoothTime: 0.15
 --- !u!54 &-121251728338012915
 Rigidbody:
