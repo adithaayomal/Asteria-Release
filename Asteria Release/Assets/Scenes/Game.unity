@@ -4643,10 +4643,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -2181743766629440291, guid: 05c8d0812331d024193f1d31112e8e9d, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 05c8d0812331d024193f1d31112e8e9d, type: 3}
       propertyPath: m_Name
       value: canteen
       objectReference: {fileID: 0}
+    - target: {fileID: 1442450553484104045, guid: 05c8d0812331d024193f1d31112e8e9d, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: f1ac25ddaf0ff41479174502326fedbe, type: 2}
     - target: {fileID: 4504409719310791647, guid: 05c8d0812331d024193f1d31112e8e9d, type: 3}
       propertyPath: m_Layer
       value: 0
