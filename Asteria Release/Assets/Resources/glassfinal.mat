@@ -36,5 +36,5 @@ Material:
     - _SrcBlend: 1
     - _ZWrite: 0
     m_Colors:
-    - _Color: {r: 0.21960786, g: 0.21960786, b: 0.21960786, a: 1}
+    - _Color: {r: 0.21960786, g: 0.21960786, b: 0.21960786, a: 0.19215687}
   m_BuildTextureStacks: []
