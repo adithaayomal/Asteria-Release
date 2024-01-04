@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
 public class PlayerGroundCheck : MonoBehaviour
 {
     PlayerController playerController;
@@ -40,7 +39,7 @@ public class PlayerGroundCheck : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject == playerController.gameObject)
+        if(collision.gameObject != playerController.gameObject)
         {
             playerController.SetGroundedState(true);
         }
@@ -49,7 +48,7 @@ public class PlayerGroundCheck : MonoBehaviour
     
     void OnCollisionExit(Collision collision)
     {
-        if(collision.gameObject == playerController.gameObject)
+        if(collision.gameObject != playerController.gameObject)
         {
             playerController.SetGroundedState(false);
         }
