@@ -1,3 +1,4 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,6 +9,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float mouseSensitivity, sprintSpeed, walkSpeed, jumpForce, smoothTime;
 
 
+ 
     float verticalLookRotation;
     bool grounded;
     Vector3 smoothMoveVelocity;
@@ -15,17 +17,35 @@ public class PlayerController : MonoBehaviour
 
     Rigidbody rb;
 
+    PhotonView PV;
+
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        PV = GetComponent<PhotonView>();
+    }
+
+    void Start()
+    {
+        if(!PV.IsMine)
+        {
+			Destroy(GetComponentInChildren<Camera>().gameObject);
+			Destroy(rb);
+        }
+        
+
     }
     // Update is called once per frame
     void Update()
     {
+        if(!PV.IsMine)
+            return;
+          
         Look();
         Move();
         Jump();
         
+
          
     }
 
@@ -56,6 +76,7 @@ public class PlayerController : MonoBehaviour
          }
     }
 
+  
     public void SetGroundedState(bool _grounded)
     {
         grounded = _grounded;
@@ -63,6 +84,8 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
+        if(!PV.IsMine)
+            return;
         rb.MovePosition(rb.position + transform.TransformDirection(moveAmount) * Time.fixedDeltaTime);
     }
 }
