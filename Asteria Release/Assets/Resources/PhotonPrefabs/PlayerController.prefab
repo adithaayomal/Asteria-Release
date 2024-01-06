@@ -154,8 +154,8 @@ MonoBehaviour:
   walkSpeed: 3
   jumpForce: 300
   smoothTime: 0.15
-  gun1Prefab: {fileID: 930462978636751653, guid: aee24bed15929b94c8562b0e6fa42eb8, type: 3}
-  gun2Prefab: {fileID: 5906391008658335264, guid: 6a3c03afefba4614abc4b511690fa7ed, type: 3}
+  gun1Prefab: {fileID: 919132149155446097, guid: 5791dc41980eb81419ca9b5308d0f3fb, type: 3}
+  gun2Prefab: {fileID: 919132149155446097, guid: faf45e2e41d422e46b8e8062ceb710b6, type: 3}
   x1: 0
   y1: 1
   z1: 0
