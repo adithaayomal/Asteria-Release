@@ -7,7 +7,13 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] GameObject cameraHolder;
     [SerializeField] float mouseSensitivity, sprintSpeed, walkSpeed, jumpForce, smoothTime;
+    [SerializeField] GameObject gun1Prefab, gun2Prefab;
 
+    public float x1, y1, z1;
+    public float x2, y2, z2;
+
+    private GameObject currentGun;
+    private int currentGunIndex = 1;
 
  
     float verticalLookRotation;
@@ -32,7 +38,10 @@ public class PlayerController : MonoBehaviour
 			Destroy(GetComponentInChildren<Camera>().gameObject);
 			Destroy(rb);
         }
-        
+        else
+        {
+            SwitchGun();
+        }
 
     }
     // Update is called once per frame
@@ -44,12 +53,27 @@ public class PlayerController : MonoBehaviour
         Look();
         Move();
         Jump();
-        
+        SwitchGun();
 
          
     }
 
 
+    void SwitchGun()
+        {
+            float scrollWheel = Input.GetAxis("Mouse ScrollWheel");
+            if (scrollWheel != 0)
+            {
+                currentGunIndex = (currentGunIndex + 1) % 2; // Switch between 0 and 1
+                Destroy(currentGun); // Destroy the current gun
+
+                // Instantiate the new gun based on the index
+                if (currentGunIndex == 0)
+                    currentGun = Instantiate(gun1Prefab, transform.position + new Vector3(x1, y1, z1), transform.rotation, transform);
+                else
+                    currentGun = Instantiate(gun2Prefab, transform.position + new Vector3(x2, y2, z2), transform.rotation, transform);
+            }
+        }
     void Look()
     {
          transform.Rotate(Vector3.up * Input.GetAxisRaw("Mouse X") * mouseSensitivity);
