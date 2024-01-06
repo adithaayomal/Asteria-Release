@@ -25,6 +25,15 @@ public class PlayerController : MonoBehaviour
 
     PhotonView PV;
 
+    [PunRPC]
+    void SetGunVisibility(bool visible)
+    {
+        if (currentGun != null)
+        {
+            currentGun.SetActive(visible);
+        }
+    }
+
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -54,7 +63,14 @@ public class PlayerController : MonoBehaviour
         Move();
         Jump();
         SwitchGun();
-
+        if (PV.IsMine)
+        {
+            // ... existing code ...
+        }
+        else
+        {
+            currentGun.SetActive(true); // Assuming the initial state is visible for other players
+        }
          
     }
 
@@ -69,9 +85,17 @@ public class PlayerController : MonoBehaviour
 
                 // Instantiate the new gun based on the index
                 if (currentGunIndex == 0)
-                    currentGun = Instantiate(gun1Prefab, transform.position + new Vector3(x1, y1, z1), transform.rotation, transform);
+                {
+                    currentGun = PhotonNetwork.Instantiate(gun1Prefab.name, transform.position + new Vector3(0f, 1f, 0f), transform.rotation);
+                    currentGun.GetComponent<PhotonView>().TransferOwnership(PV.ViewID);
+                    PV.RPC("SetGunVisibility", RpcTarget.AllBuffered, true);
+                }
                 else
-                    currentGun = Instantiate(gun2Prefab, transform.position + new Vector3(x2, y2, z2), transform.rotation, transform);
+                {
+                    currentGun = PhotonNetwork.Instantiate(gun2Prefab.name, transform.position + new Vector3(0f, 1f, 0f), transform.rotation);
+                    currentGun.GetComponent<PhotonView>().TransferOwnership(PV.ViewID);
+                    PV.RPC("SetGunVisibility", RpcTarget.AllBuffered, true);
+                }
             }
         }
     void Look()
