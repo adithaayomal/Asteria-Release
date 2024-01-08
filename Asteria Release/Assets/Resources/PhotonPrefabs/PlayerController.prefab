@@ -154,7 +154,9 @@ MonoBehaviour:
   walkSpeed: 5
   jumpForce: 300
   smoothTime: 0.15
-  items: []
+  items:
+  - {fileID: 1622033184172890940}
+  - {fileID: 8623627592565221594}
 --- !u!114 &5307527832442329237
 MonoBehaviour:
   m_ObjectHideFlags: 0
