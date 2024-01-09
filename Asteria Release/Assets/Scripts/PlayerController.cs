@@ -49,6 +49,14 @@ public class PlayerController : MonoBehaviour
         Look();
         Move();
         Jump();
+        for(int i = 0; i < items.Length; i++)
+		{
+			if(Input.GetKeyDown((i + 1).ToString()))
+			{
+				EquipItem(i);
+				break;
+			}
+		}
         
     }
 
