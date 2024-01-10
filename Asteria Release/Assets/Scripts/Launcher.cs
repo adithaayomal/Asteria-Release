@@ -11,6 +11,7 @@ public class Launcher : MonoBehaviourPunCallbacks
     public static Launcher Instance;
 
     [SerializeField] TMP_InputField roomNameInputField;
+    [SerializeField] TMP_InputField playerNameInputField;
     [SerializeField] TMP_Text errorText;
     [SerializeField] TMP_Text roomNameText;
     [SerializeField] Transform roomListContent;
@@ -18,7 +19,7 @@ public class Launcher : MonoBehaviourPunCallbacks
     [SerializeField] GameObject roomListItemPrefab;
     [SerializeField] GameObject PlayerListItemPrefab;
     [SerializeField] GameObject startGameButton;
-
+    
     void Awake()
     {
 
@@ -29,7 +30,7 @@ public class Launcher : MonoBehaviourPunCallbacks
     {
         Debug.Log("Connecting...");
         PhotonNetwork.ConnectUsingSettings();
-
+        
     }
 
     public override void OnConnectedToMaster()
@@ -43,12 +44,14 @@ public class Launcher : MonoBehaviourPunCallbacks
     {
        MenuManager.Instance.OpenMenu("main");
        Debug.Log("Joinned Lobby");
-       PhotonNetwork.NickName = "Player " + Random.Range(0, 1000).ToString("0000");
+       
+       PhotonNetwork.NickName = playerNameInputField.text + Random.Range(0, 1000).ToString("0000");
 
         
 
     
     }
+    
 
     public void CreateRoom()
     {
@@ -58,6 +61,9 @@ public class Launcher : MonoBehaviourPunCallbacks
         }
 
         PhotonNetwork.CreateRoom(roomNameInputField.text);
+
+        PhotonNetwork.NickName = playerNameInputField.text +"_"+ Random.Range(0, 1000).ToString("0000");
+        
         MenuManager.Instance.OpenMenu("loading");
     }
 
@@ -112,7 +118,7 @@ public class Launcher : MonoBehaviourPunCallbacks
     {
         PhotonNetwork.JoinRoom(info.Name);
         MenuManager.Instance.OpenMenu("loading");
-
+        PhotonNetwork.NickName = playerNameInputField.text + Random.Range(0, 1000).ToString("0000");
 
     }
 
