@@ -288,6 +288,7 @@ MonoBehaviour:
   items:
   - {fileID: 8819068575067470956}
   - {fileID: 4987928076071962981}
+  interactionDistance: 2
 --- !u!114 &-8451726542214837317
 MonoBehaviour:
   m_ObjectHideFlags: 0

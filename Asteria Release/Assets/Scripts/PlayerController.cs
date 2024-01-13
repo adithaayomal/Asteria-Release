@@ -8,6 +8,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] GameObject cameraHolder;
     [SerializeField] float mouseSensitivity, sprintSpeed, walkSpeed, jumpForce, smoothTime;
     [SerializeField] Item[] items;
+    [SerializeField] float interactionDistance;
+
+
+    List<GameObject> inventory = new List<GameObject>();
 
 
     int itemIndex;
@@ -51,6 +55,7 @@ public class PlayerController : MonoBehaviour
         Look();
         Move();
         Jump();
+        CheckObjectInteraction();
         for(int i = 0; i < items.Length; i++)
 		{
 			if(Input.GetKeyDown((i + 1).ToString()))
@@ -160,6 +165,60 @@ public class PlayerController : MonoBehaviour
 
         previousGunIndex = currentGunIndex;
     }*/
+    void CheckObjectInteraction()
+    {
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            Collider[] colliders = Physics.OverlapSphere(transform.position, interactionDistance);
+            foreach (Collider collider in colliders)
+            {
+                if (collider.CompareTag("Collectible"))
+                {
+                    // Hide the object
+                    collider.gameObject.SetActive(false);
+
+                    // Add to inventory
+                    inventory.Add(collider.gameObject);
+
+                    // Display message in UI
+                    DisplayMessage("Object collected: " + collider.gameObject.name);
+                    break;
+                }
+            }
+        }
+    }
+
+    void FeedObjectToNPC()
+    {
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            Collider[] colliders = Physics.OverlapSphere(transform.position, interactionDistance);
+            foreach (Collider collider in colliders)
+            {
+                if (collider.CompareTag("NPC"))
+                {
+                    // Check if the inventory is not empty
+                    if (inventory.Count > 0)
+                    {
+                        // Feed the object to the NPC (remove it from the inventory)
+                        GameObject fedObject = inventory[0];
+                        inventory.RemoveAt(0);
+
+                        // Display message in UI
+                        DisplayMessage("Object fed to NPC: " + fedObject.name);
+                    }
+                    else
+                    {
+                        // Display a message that the inventory is empty
+                        DisplayMessage("Inventory is empty!");
+                    }
+                    break;
+                }
+            }
+        }
+    }
+
+
 
     void Look()
     {
@@ -199,4 +258,24 @@ public class PlayerController : MonoBehaviour
 
         rb.MovePosition(rb.position + transform.TransformDirection(moveAmount) * Time.fixedDeltaTime);
     }
+    void DisplayMessage(string message)
+    {
+        // Implement UI display logic here
+        // For simplicity, you can use Debug.Log to print the message to the console.
+        Debug.Log(message);
+        // If you have a UI system in place, you would update your UI elements here.
+    }
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
