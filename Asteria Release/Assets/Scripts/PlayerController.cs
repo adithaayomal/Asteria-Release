@@ -2,6 +2,9 @@ using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
+
 
 public class PlayerController : MonoBehaviour
 {
@@ -9,6 +12,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float mouseSensitivity, sprintSpeed, walkSpeed, jumpForce, smoothTime;
     [SerializeField] Item[] items;
     [SerializeField] float interactionDistance;
+
+    [SerializeField] TMP_Text canvasTextC;
+    [SerializeField] TMP_Text canvasTextG;
 
 
     List<GameObject> inventory = new List<GameObject>();
@@ -56,6 +62,8 @@ public class PlayerController : MonoBehaviour
         Move();
         Jump();
         CheckObjectInteraction();
+        FeedObjectToNPC();
+
         for(int i = 0; i < items.Length; i++)
 		{
 			if(Input.GetKeyDown((i + 1).ToString()))
@@ -182,6 +190,7 @@ public class PlayerController : MonoBehaviour
 
                     // Display message in UI
                     DisplayMessage("Object collected: " + collider.gameObject.name);
+                    canvasTextC.gameObject.SetActive(true);
                     break;
                 }
             }
@@ -206,6 +215,7 @@ public class PlayerController : MonoBehaviour
 
                         // Display message in UI
                         DisplayMessage("Object fed to NPC: " + fedObject.name);
+                        canvasTextG.gameObject.SetActive(true);
                     }
                     else
                     {
