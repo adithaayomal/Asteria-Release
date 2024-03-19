@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float mouseSensitivity, sprintSpeed, walkSpeed, jumpForce, smoothTime;
     [SerializeField] Item[] items;
     [SerializeField] float interactionDistance;
-
+    [SerializeField] GameObject playerPrefab;
     [SerializeField] TMP_Text canvasTextC;
     [SerializeField] TMP_Text canvasTextG;
 
@@ -38,7 +38,13 @@ public class PlayerController : MonoBehaviour
     }
 
     void Start()
-    {
+    {   
+        if (PhotonNetwork.IsConnected && PhotonNetwork.IsConnected)
+        {
+            // Spawn the player prefab at the specified position
+            Vector3 spawnPosition = new Vector3(0f, 168f, 0f); // Adjust the position as needed
+            PhotonNetwork.Instantiate(playerPrefab.name, spawnPosition, Quaternion.identity);
+        }
         if (PV.IsMine)
         {
             EquipItem(0);
@@ -51,7 +57,7 @@ public class PlayerController : MonoBehaviour
 
         
     }
-
+    
     // Update is called once per frame
     void Update()
     {
