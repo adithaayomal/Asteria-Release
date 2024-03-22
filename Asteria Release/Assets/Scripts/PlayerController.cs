@@ -13,8 +13,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] Item[] items;
     [SerializeField] float interactionDistance;
     [SerializeField] GameObject playerPrefab;
-    [SerializeField] TMP_Text canvasTextC;
-    [SerializeField] TMP_Text canvasTextG;
+
 
 
     List<GameObject> inventory = new List<GameObject>();
@@ -67,8 +66,7 @@ public class PlayerController : MonoBehaviour
         Look();
         Move();
         Jump();
-        CheckObjectInteraction();
-        FeedObjectToNPC();
+
 
         for(int i = 0; i < items.Length; i++)
 		{
@@ -96,143 +94,10 @@ public class PlayerController : MonoBehaviour
 		previousItemIndex = itemIndex;
 
 	}
-/*
-    void UpdateCrosshairVisibility()
-    {
-        bool cursorVisible = Cursor.lockState == CursorLockMode.None;
-        crosshair.SetVisibility(!cursorVisible); // Set crosshair visibility based on cursor lock state
-    }
 
-    void SwitchGun()
-    {
-        // Check if the gun needs to be switched using keys "Q" and "E"
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            SwitchToPreviousGun();
-        }
-        else if (Input.GetKeyDown(KeyCode.E))
-        {
-            SwitchToNextGun();
-        }
-    }
+   
 
-    void SwitchToNextGun()
-    {
-        SetGunOffsets(currentGunIndex);
 
-        if (currentGun != null)
-        {
-            PhotonNetwork.Destroy(currentGun);
-        }
-
-        currentGunIndex = (currentGunIndex + 1) % numberOfGuns;
-        InstantiateGun();
-    }
-
-    void SwitchToPreviousGun()
-    {
-        SetGunOffsets(currentGunIndex);
-
-        if (currentGun != null)
-        {
-            PhotonNetwork.Destroy(currentGun);
-        }
-
-        currentGunIndex = (currentGunIndex - 1 + numberOfGuns) % numberOfGuns;
-        InstantiateGun();
-    }
-    Vector3 gunPositionOffset = Vector3.zero;
-    Vector3 gunRotationOffset = Vector3.zero;
-
-    void SetGunOffsets(int index)
-    {
-        switch (index)
-        {
-            case 0:
-                gunPositionOffset = gun1PositionOffset;
-                gunRotationOffset = gun1RotationOffset;
-                break;
-            case 1:
-                gunPositionOffset = gun2PositionOffset;
-                gunRotationOffset = gun2RotationOffset;
-                break;
-            // Add cases for more guns if needed
-        }
-    }
-
-    void InstantiateGun()
-    {
-        Vector3 gunPositionOffset = Vector3.zero;
-        Vector3 gunRotationOffset = Vector3.zero;
-
-        SetGunOffsets(currentGunIndex);
-
-        currentGun = PhotonNetwork.Instantiate(
-            currentGunIndex == 0 ? gun1Prefab.name : gun2Prefab.name,
-            transform.position + gunPositionOffset,
-            Quaternion.Euler(gunRotationOffset)
-        );
-
-        currentGun.transform.parent = transform;
-        currentGun.GetComponent<PhotonView>().TransferOwnership(PV.ViewID);
-        PV.RPC("SetGunVisibility", RpcTarget.AllBuffered, true);
-
-        previousGunIndex = currentGunIndex;
-    }*/
-    void CheckObjectInteraction()
-    {
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            Collider[] colliders = Physics.OverlapSphere(transform.position, interactionDistance);
-            foreach (Collider collider in colliders)
-            {
-                if (collider.CompareTag("Collectible"))
-                {
-                    // Hide the object
-                    collider.gameObject.SetActive(false);
-
-                    // Add to inventory
-                    inventory.Add(collider.gameObject);
-
-                    // Display message in UI
-                    DisplayMessage("Object collected: " + collider.gameObject.name);
-                    canvasTextC.gameObject.SetActive(true);
-                    break;
-                }
-            }
-        }
-    }
-
-    void FeedObjectToNPC()
-    {
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            Collider[] colliders = Physics.OverlapSphere(transform.position, interactionDistance);
-            foreach (Collider collider in colliders)
-            {
-                if (collider.CompareTag("NPC"))
-                {
-                    // Check if the inventory is not empty
-                    if (inventory.Count > 0)
-                    {
-                        // Feed the object to the NPC (remove it from the inventory)
-                        GameObject fedObject = inventory[0];
-                        inventory.RemoveAt(0);
-
-                        // Display message in UI
-                        DisplayMessage("Object fed to NPC: " + fedObject.name);
-                        canvasTextG.gameObject.SetActive(true);
-                    }
-                    else
-                    {
-                        // Display a message that the inventory is empty
-                        DisplayMessage("Inventory is empty!");
-                    }
-                    break;
-                }
-            }
-        }
-    }
 
 
 

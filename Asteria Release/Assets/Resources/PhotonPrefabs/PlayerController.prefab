@@ -217,10 +217,10 @@ GameObject:
   - component: {fileID: 7177387399613886411}
   - component: {fileID: -8451726542214837317}
   - component: {fileID: -8120068496369708870}
-  - component: {fileID: 8237212245491690307}
+  - component: {fileID: 3579409843598849364}
   m_Layer: 0
   m_Name: PlayerController
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -290,8 +290,6 @@ MonoBehaviour:
   - {fileID: 4987928076071962981}
   interactionDistance: 2
   playerPrefab: {fileID: 7402823006260532635}
-  canvasTextC: {fileID: 0}
-  canvasTextG: {fileID: 0}
 --- !u!114 &-8451726542214837317
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -335,8 +333,8 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!64 &8237212245491690307
-MeshCollider:
+--- !u!136 &3579409843598849364
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -353,10 +351,11 @@ MeshCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 0
-  m_Mesh: {fileID: 1022625529149906712, guid: 37773d45b351fbd48b3c1bfd3aabb700, type: 3}
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 1.9217118
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.9461151, z: 0}
 --- !u!1 &7601207558686829736
 GameObject:
   m_ObjectHideFlags: 0
@@ -468,8 +467,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.0626483, y: 0.091942266, z: 0.41779524}
-  m_Center: {x: 0.046857595, y: -0.034332655, z: -0.29110238}
+  m_Size: {x: 0.44119966, y: 0.091942266, z: 0.24340038}
+  m_Center: {x: -0.0007497072, y: -0.034332655, z: -0.28196836}
 --- !u!1 &8367934105659483874
 GameObject:
   m_ObjectHideFlags: 0
@@ -647,6 +646,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 37773d45b351fbd48b3c1bfd3aabb700, type: 3}
       propertyPath: m_Name
       value: Ch44_nonPBR
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 37773d45b351fbd48b3c1bfd3aabb700, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
